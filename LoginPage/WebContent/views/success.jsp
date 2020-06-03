@@ -12,5 +12,8 @@
     </head>
     <body>
  ログイン成功
+   <p>
+        <span>${requestScope.users}</span>
+  </p>
     </body>
 </html>

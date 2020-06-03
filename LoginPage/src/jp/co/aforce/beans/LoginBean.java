@@ -6,13 +6,13 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class LoginBean implements Serializable {
 
- private String username;
+ private String user_id;
  private String password;
  private String emsg;
 
  // セッター
- public String getUsername() {
-     return username;
+ public String getUser_id() {
+     return user_id;
  }
  public String getPassword() {
      return password;
@@ -22,8 +22,8 @@ public class LoginBean implements Serializable {
  }
 
  // ゲッター
- public void setUsername(String username) {
-     this.username = username;
+ public void setUser_id(String user_id) {
+     this.user_id = user_id;
  }
  public void setPassword(String password) {
      this.password = password;

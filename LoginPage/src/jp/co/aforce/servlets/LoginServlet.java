@@ -1,6 +1,7 @@
 package jp.co.aforce.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import jp.co.aforce.beans.LoginBean;
+import jp.co.aforce.beans.UserBean;
 import jp.co.aforce.models.LoginModel;
+import jp.co.aforce.models.UserModel;
 
 // 親クラスに HttpServlet を指定する
 @SuppressWarnings("serial") // これがないと waring がでる
@@ -32,12 +35,12 @@ public class LoginServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // ユーザによって入力された情報を取り出す
-        String username = request.getParameter("username");
+        String user_id = request.getParameter("user_id");
         String password = request.getParameter("password");
 
         // 取り出した情報を loginBean に格納する
         LoginBean loginBean = new LoginBean();
-        loginBean.setUsername(username);
+        loginBean.setUser_id(user_id);
         loginBean.setPassword(password);
 
         // モデルをインスタンス化する
@@ -45,17 +48,17 @@ public class LoginServlet extends HttpServlet {
         String forward_jsp = "/views/login.jsp";
 
         // 入力された情報がDBに存在するか調べる
-        if (loginModel.loginCheck(username, password)) {
+        if (loginModel.loginCheck(user_id, password)) {
 
             // TODO ここはオリジナル処理を考える ↓↓
-            // 例）ログインしたユーザの情報を表示する
+            // ログインしたユーザの情報を表示する
             //// DB上にある全てのユーザ情報を取得
-            // UserModel userModel = new UserModel();
-            // List<UserBean> users = userModel.getAllUsers();
+            UserModel userModel = new UserModel();
+            List<UserBean> users = userModel.getAllUsers(user_id, password);
             // TODO ここはオリジナル処理を考える ↑↑
 
             // リクエストオブジェクトに設定
-            //request.setAttribute("users", users);
+            request.setAttribute("users", users);
 
             // ログインに成功した先の JSP を指定
             forward_jsp = "/views/success.jsp";
